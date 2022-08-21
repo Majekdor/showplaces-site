@@ -1,0 +1,20 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["8XQR9YKLCL.com.ocelotwrangler.showplaces"],
+        "components": [
+          {
+            "/": "/*",
+            "?": { "shareID": "???????" },
+            "comment": "Universal links"
+          },
+          {
+            "/": "/help/*",
+            "exclude": true
+          }
+        ]
+      }
+    ]
+  }
+}
