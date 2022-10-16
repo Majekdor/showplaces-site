@@ -10,6 +10,11 @@
             "comment": "Universal links"
           },
           {
+            "/": "/*",
+            "?": { "fromSite": "????" },
+            "comment": "Frontend site sharing"
+          },
+          {
             "/": "/help/*",
             "exclude": true
           }
