@@ -13,16 +13,14 @@
     <meta content="assets/favicon.png" property="og:image"/>
 
     <link href="assets/tobi.css" rel="stylesheet"/>
-    <link href="assets/style.css" rel="stylesheet"/>
+    <link href="assets/globals.css" rel="stylesheet"/>
 
 </head>
 <body>
-<div class="sidebar" id="mySidebar">
-    <a class="closebtn" href="javascript:void(0)" onclick="closeNav()">&times;</a>
-    <a href="index">Home</a>
-    <a href="share">Share</a>
+<div id="nav">
+    <a class="nav-left" href="index">Home</a>
     <a href="tutorials">Tutorials</a>
-    <a href="coordinate-formats">Coordinate Format Info</a>
+    <a href="coordinate-formats">Coordinate Formats</a>
     <a href="privacy">Privacy Policy</a>
 </div>
 <script>
@@ -39,19 +37,52 @@
     }
 </script>
 <main>
-    <button class="openbtn container" onclick="openNav()">&#9776;</button>
     <article class="page">
         <header class="page__header">
             <h1 class="page__title">Share A Location</h1>
+
+            <p>This will allow you to generate a link that can be opened in the Showplaces app.</p>
         </header>
         <div class="page__content">
             <form>
-                <label for="name">Location Name:</label><br>
+                <br><hr><br>
+
+                <label><strong>Location Information</strong></label><br><br>
+                <label for="name">Name:</label><br>
                 <input type="text" id="name" name="name" onfocusout="foo()"><br>
                 <label for="label">Label:</label><br>
                 <input type="text" id="label" name="label"><br>
-                <input type="submit" value="Share" onclick="share()">
+
+                <br><hr><br>
+
+                <label><strong>Address</strong></label><br><br>
+                <label for="street">Street Address:</label><br>
+                <input type="text" id="street" name="street"><br>
+                <label for="city">City:</label><br>
+                <input type="text" id="city" name="city"><br>
+                <label for="state">State:</label><br>
+                <input type="text" id="state" name="state"><br>
+                <label for="zip">Postal Code:</label><br>
+                <input type="text" id="zip" name="zip"><br>
+                <label for="country">Country:</label><br>
+                <input type="text" id="country" name="country"><br>
+
+                <br><hr><br>
+
+                <label><strong>Coordinates</strong></label><br>
+                <p><em>Enter in decimal degree format.</em></p>
+                <label for="latitude">Latitude:</label>
+                <input type="text" id="latitude" name="latitude"><br>
+                <label for="longitude">Longitude:</label>
+                <input type="text" id="longitude" name="longitude"><br>
+
+                <br><hr><br>
+
+                <input type="submit" class="button-9" value="Share" onclick="share()">
+
+                <br><br><br><br>
             </form>
+
             <script>
                 let name = document.getElementById("name");
                 name.addEventListener("keydown", function () {
