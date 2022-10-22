@@ -8,8 +8,8 @@ export default function Layout({ children, title = '' }) {
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1"/>
         </Head>
         <div id="nav">
-            <a className="nav-left" href="index">Home</a>
-            <a href="tutorials">Tutorials</a>
+            <a className="nav-left" href="/">Home</a>
+            {/*<a href="tutorials">Tutorials</a>*/}
             <a href="coordinate-formats">Coordinate Formats</a>
             <a href="privacy">Privacy Policy</a>
         </div>
@@ -21,6 +21,30 @@ const Content = ({ children }) => {
     return (
         <main className="page">
             {children}
+            <Footer/>
         </main>
+    )
+}
+
+const Footer = () => {
+    return (
+        <footer className="footer">
+            <div className="container">
+                <div className="footer__container">
+                    <p className="footer__love">
+                        <script>document.write('&copy;' + (new Date()).getFullYear());</script>
+                        <noscript>&copy;2022</noscript>
+                        Ocelot Wrangler - All rights reserved
+                    </p>
+                    {/*
+                    <ul class="footer__links">
+                            <li class="footer__link">
+                                <a href="privacy.html">Privacy</a>
+                            </li>
+                    </ul>
+                    */}
+                </div>
+            </div>
+        </footer>
     )
 }
