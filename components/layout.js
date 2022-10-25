@@ -32,7 +32,7 @@ const Footer = () => {
             <div className="container">
                 <div className="footer__container">
                     <p className="footer__love">
-                        <script>document.write('&copy;' + (new Date()).getFullYear());</script>
+
                         <noscript>&copy;2022</noscript>
                         Ocelot Wrangler - All rights reserved
                     </p>
