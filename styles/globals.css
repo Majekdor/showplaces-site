@@ -359,6 +359,10 @@ html[dir=rtl] .app__logo-wrapper {
     margin: auto;
 }
 
+.address {
+    line-height: 0.5;
+}
+
 .darkmode-toggle {
     z-index: 500;
 }
