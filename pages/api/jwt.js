@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
     const header = {
         "alg": "ES256",
         "typ": "JWT",
@@ -10,13 +10,11 @@ export default function handler(req, res) {
     const payload = {
         "iss": process.env.ISS,
         "iat": Date.now() / 1000,
-        "exp": (Date.now() / 1000) + 31556952000,
+        "exp": (Date.now() / 1000) + 3600000, // expire after 1 hour
+        //"origin": "*.ocelotwrangler.com"
     }
 
     let { mapkit_key } = JSON.parse(process.env.MAPKIT_KEY)
-    //console.log(mapkit_key)
-    let token = jwt.sign(payload, mapkit_key, {header: header});
-    res.send(process.env.TOKEN)
-    //res.json({ token: process.env.TOKEN})
-    console.log(process.env.TOKEN)
+    let token = await jwt.sign(payload, mapkit_key, {header: header})
+    res.send(token)
 }
