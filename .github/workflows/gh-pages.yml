@@ -16,13 +16,12 @@ jobs:
         with:
           node-version: '12.x'
 
-      - run: next build
+      - run: npm run build
         env:
           MAPKIT_KEY: ${{ secrets.MAPKIT_KEY }}
           KID: ${{ secrets.KID }}
           ISS: ${{ secrets.ISS }}
           BYTEBIN_AUTH_KEY: ${{ secrets.BYTEBIN_AUTH_KEY }}
-      - run: next export
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
