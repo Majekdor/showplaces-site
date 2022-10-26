@@ -7,12 +7,11 @@
           {
             "/": "/*",
             "?": { "shareID": "???????" },
-            "comment": "Universal links"
+            "comment": "Old sharing format"
           },
           {
-            "/": "/*",
-            "?": { "fromSite": "????" },
-            "comment": "Frontend site sharing"
+            "/": "/shared",
+            "comment": "New sharing format"
           },
           {
             "/": "/help/*",
