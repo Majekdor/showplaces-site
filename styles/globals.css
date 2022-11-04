@@ -95,7 +95,7 @@ a:hover {
 
 .container {
     max-width: 960px;
-    padding: 0 30px;
+    /*padding: 0 30px;*/
     margin: auto;
 }
 
@@ -355,7 +355,7 @@ html[dir=rtl] .app__logo-wrapper {
 
 .page {
     max-width: 960px;
-    padding: 0 30px;
+    /*padding: 0 30px;*/
     margin: auto;
 }
 
