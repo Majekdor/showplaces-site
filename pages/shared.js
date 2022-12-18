@@ -30,8 +30,6 @@ function formatAddress(streetAddress, city, state, postalCode, country) {
 function Shared({ json }) {
     let sharedLocations = JSON.parse(json["sharedLocations"])
     let noSharedLocations = sharedLocations.length === 0
-    let latitudeCenter = json["latitudeCenter"]
-    let longitudeCenter = json["longitudeCenter"]
     return (
         <Layout title="Shared Locations">
             <header className="page__header">
@@ -45,7 +43,6 @@ function Shared({ json }) {
                 {noSharedLocations ? (
                     <p>No locations found from url.</p>
                 ) : (
-                    // TODO: Create function to format address so there isn't a comma even when there isn't a street address
                     sharedLocations.map(location => (
                         <div className="address">
                             <h4>{location.name}{location.tags.map(tag => (" • " + tag))}</h4>
@@ -59,10 +56,10 @@ function Shared({ json }) {
                     <MapkitProvider tokenOrCallback='/api/jwt'>
                         <Map
                             region={{
-                                latitude: latitudeCenter,
-                                longitude: longitudeCenter,
-                                latitudeSpan: 0.167647972,
-                                longitudeSpan: 0.354985255,
+                                latitude: json["latitudeCenter"],
+                                longitude: json["longitudeCenter"],
+                                latitudeSpan: json["latitudeSpan"],
+                                longitudeSpan: json["longitudeSpan"],
                             }}
                         >
                             {sharedLocations.map(marker => (
@@ -88,14 +85,16 @@ export async function getServerSideProps(context) {
     let query = context.query
     let origin = query.origin
 
-    let latitudeTotal = 0
-    let longitudeTotal = 0
     let latitudeCenter = 0
     let longitudeCenter = 0
+    let latitudeSpan = 0
+    let longitudeSpan = 0
 
     if (origin === "site") {
         latitudeCenter = Number(query.latitude)
         longitudeCenter = Number(query.longitude)
+        latitudeSpan = 0.167647972
+        longitudeSpan = 0.354985255
         sharedLocations.push(
             new SharedLocation(
                 query.name,
@@ -117,9 +116,28 @@ export async function getServerSideProps(context) {
         )
         const json = await response.json()
 
+        let latitudeTotal = 0
+        let longitudeTotal = 0
+        let smallestLatitude = 1000
+        let smallestLongitude = 1000
+        let largestLatitude = 1000
+        let largestLongitude = 1000
+
         json["locations"].forEach(sharedLocation => {
             latitudeTotal += sharedLocation["latitude"]
             longitudeTotal += sharedLocation["longitude"]
+            if (smallestLatitude === 1000 || sharedLocation["latitude"] < smallestLatitude) {
+                smallestLatitude = sharedLocation["latitude"]
+            }
+            if (smallestLongitude === 1000 || sharedLocation["longitude"] < smallestLongitude) {
+                smallestLongitude = sharedLocation["longitude"]
+            }
+            if (largestLatitude === 1000 || sharedLocation["latitude"] > largestLatitude) {
+                largestLatitude = sharedLocation["latitude"]
+            }
+            if (largestLongitude === 1000 || sharedLocation["longitude"] > largestLongitude) {
+                largestLongitude = sharedLocation["longitude"]
+            }
             sharedLocations.push(
                 new SharedLocation(
                     sharedLocation["name"],
@@ -137,13 +155,17 @@ export async function getServerSideProps(context) {
 
         latitudeCenter = latitudeTotal / sharedLocations.length
         longitudeCenter = longitudeTotal / sharedLocations.length
+        latitudeSpan = (largestLatitude - smallestLatitude) + 0.1
+        longitudeSpan = (largestLongitude - smallestLongitude) + 0.1
     }
 
     let data = JSON.stringify(sharedLocations)
     let json = {
         "sharedLocations": data,
         "latitudeCenter": latitudeCenter,
-        "longitudeCenter": longitudeCenter
+        "longitudeCenter": longitudeCenter,
+        "latitudeSpan": latitudeSpan,
+        "longitudeSpan": longitudeSpan
     }
     return { props: { json }}
 }
