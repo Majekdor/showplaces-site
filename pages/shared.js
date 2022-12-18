@@ -14,6 +14,19 @@ function SharedLocation(name, tags, streetAddress, city, state, postalCode, coun
     this.longitude = longitude;
 }
 
+function formatAddress(streetAddress, city, state, postalCode, country) {
+    let streetAddressFormatted = streetAddress === "" ? <em>No Street Address Found</em> : <>{streetAddress}</>
+    let cityFormatted = city === "" ? <em>No City Found</em> : <>{city}</>
+    let stateFormatted = state === "" ? <em>No State Found</em> : <>{state}</>
+    let postalCodeFormatted = postalCode === "" ? <em>No Postal Code Found</em> : <>{postalCode}</>
+    let countryFormatted = country === "" ? <em>No Country Found</em> : <>{country}</>
+    return (<>
+        <p>{streetAddressFormatted}</p>
+        <p>{cityFormatted}, {stateFormatted} {postalCodeFormatted}</p>
+        <p>{countryFormatted}</p>
+    </>)
+}
+
 function Shared({ json }) {
     let sharedLocations = JSON.parse(json["sharedLocations"])
     let noSharedLocations = sharedLocations.length === 0
@@ -36,9 +49,7 @@ function Shared({ json }) {
                     sharedLocations.map(location => (
                         <div className="address">
                             <h4>{location.name}{location.tags.map(tag => (" • " + tag))}</h4>
-                            <p>{location.streetAddress}</p>
-                            <p>{location.city}, {location.state} {location.postalCode}</p>
-                            <p>{location.country}</p>
+                            {formatAddress(location.streetAddress, location.city, location.state, location.postalCode, location.country)}
                             <br/>
                         </div>
                     ))
