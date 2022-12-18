@@ -10,12 +10,12 @@ const nextConfig = {
             //}
         ]
     },
-    env: {
-        MAPKIT_KEY: process.env.MAPKIT_KEY,
-        KID: process.env.KID,
-        ISS: process.env.ISS,
-        BYTEBIN_AUTH_KEY: process.env.BYTEBIN_AUTH_KEY
-    }
+    // env: {
+    //     MAPKIT_KEY: process.env.MAPKIT_KEY,
+    //     KID: process.env.KID,
+    //     ISS: process.env.ISS,
+    //     BYTEBIN_AUTH_KEY: process.env.BYTEBIN_AUTH_KEY
+    // }
 }
 
 module.exports = nextConfig
