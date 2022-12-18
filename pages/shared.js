@@ -2,9 +2,9 @@ import {Map, MapkitProvider, Marker} from "react-mapkit";
 import Layout from "../components/layout";
 import React from "react";
 
-function SharedLocation(name, label, streetAddress, city, state, postalCode, country, latitude, longitude) {
+function SharedLocation(name, tags, streetAddress, city, state, postalCode, country, latitude, longitude) {
     this.name = name;
-    this.label = label;
+    this.tags = tags;
     this.streetAddress = streetAddress;
     this.city = city;
     this.state = state;
@@ -32,9 +32,10 @@ function Shared({ json }) {
                 {noSharedLocations ? (
                     <p>No locations found from url.</p>
                 ) : (
+                    // TODO: Create function to format address so there isn't a comma even when there isn't a street address
                     sharedLocations.map(location => (
                         <div className="address">
-                            <h4>{location.name} | {location.label}</h4>
+                            <h4>{location.name}{location.tags.map(tag => (" • " + tag))}</h4>
                             <p>{location.streetAddress}</p>
                             <p>{location.city}, {location.state} {location.postalCode}</p>
                             <p>{location.country}</p>
@@ -111,7 +112,7 @@ export async function getServerSideProps(context) {
             sharedLocations.push(
                 new SharedLocation(
                     sharedLocation["name"],
-                    sharedLocation["label"],
+                    sharedLocation["tags"],
                     sharedLocation["address"]["street"],
                     sharedLocation["address"]["city"],
                     sharedLocation["address"]["state"],
