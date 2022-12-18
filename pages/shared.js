@@ -58,6 +58,7 @@ function Shared({ json }) {
                                     latitude={marker.latitude}
                                     longitude={marker.longitude}
                                     title={marker.name}
+                                    clusteringIdentifier={"standard"}
                                 />
                             ))}
                         </Map>
