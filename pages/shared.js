@@ -27,9 +27,23 @@ function formatAddress(streetAddress, city, state, postalCode, country) {
     </>)
 }
 
+function isNanOrZero(number) {
+    if (isNaN(number)) {
+        return true
+    }
+    return number === 0;
+
+}
+
 function Shared({ json }) {
     let sharedLocations = JSON.parse(json["sharedLocations"])
     let noSharedLocations = sharedLocations.length === 0
+    let latitudeSpan = isNanOrZero(json["latitudeSpan"]) ? 0.167647972 : json["latitudeSpan"]
+    let longitudeSpan = isNanOrZero(json["longitudeSpan"]) ? 0.354985255 : json["longitudeSpan"]
+    let latitudeCenter = isNanOrZero(json["latitudeCenter"]) ? 35.7796 : json["latitudeCenter"]
+    let longitudeCenter = isNanOrZero(json["longitudeCenter"]) ? -78.6382 : json["longitudeCenter"]
+    console.log(latitudeSpan)
+    console.log(longitudeSpan)
     return (
         <Layout title="Shared Locations">
             <header className="page__header">
@@ -56,10 +70,10 @@ function Shared({ json }) {
                     <MapkitProvider tokenOrCallback='/api/jwt'>
                         <Map
                             region={{
-                                latitude: json["latitudeCenter"],
-                                longitude: json["longitudeCenter"],
-                                latitudeSpan: json["latitudeSpan"],
-                                longitudeSpan: json["longitudeSpan"],
+                                latitude: latitudeCenter,
+                                longitude: longitudeCenter,
+                                latitudeSpan: latitudeSpan,
+                                longitudeSpan: longitudeSpan,
                             }}
                         >
                             {sharedLocations.map(marker => (
