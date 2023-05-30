@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.ocelotwrangler.showplaces",
+      "sha256_cert_fingerprints": [
+        "9A:44:D4:FE:2D:CC:E2:5E:D1:E4:3D:DE:2C:56:3D:CB:26:CB:BD:22:AF:99:AE:AA:6E:83:FC:DE:B7:03:78:FA"
+      ]
+    }
+  }
+]
