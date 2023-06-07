@@ -11,7 +11,7 @@ export default async function handler(req, res) {
         "iss": process.env.ISS,
         "iat": Date.now() / 1000,
         "exp": (Date.now() / 1000) + 3600000, // expire after 1 hour
-        "origin": "*.showplaces.app"
+        "origin": "showplaces.app"
     }
 
     let { mapkit_key } = JSON.parse(process.env.MAPKIT_KEY)
