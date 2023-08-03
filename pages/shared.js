@@ -36,6 +36,18 @@ function isNanOrZero(number) {
 }
 
 function Shared({ json }) {
+    if (json === null) {
+        return (
+            <Layout title="Shared Locations">
+                <header className="page__header">
+                    <h1 className="page__title">No Locations Found</h1>
+
+                    <p>This link may be expired or invalid.</p>
+                </header>
+            </Layout>
+        )
+    }
+
     let sharedLocations = JSON.parse(json["sharedLocations"])
     let noSharedLocations = sharedLocations.length === 0
     let latitudeSpan = isNanOrZero(json["latitudeSpan"]) ? 0.167647972 : json["latitudeSpan"]
@@ -137,7 +149,18 @@ export async function getServerSideProps(context) {
         let largestLatitude = 1000
         let largestLongitude = 1000
 
-        json["locations"].forEach(sharedLocation => {
+        let locations
+
+        if (json.hasOwnProperty("groups")) {
+            let group = json["groups"][0]
+            locations = group["showplaces"]
+        } else if (json.hasOwnProperty("locations")) {
+            locations = json["locations"]
+        } else {
+            return { props: { }}
+        }
+
+        locations.forEach(sharedLocation => {
             latitudeTotal += sharedLocation["latitude"]
             longitudeTotal += sharedLocation["longitude"]
             if (smallestLatitude === 1000 || sharedLocation["latitude"] < smallestLatitude) {
