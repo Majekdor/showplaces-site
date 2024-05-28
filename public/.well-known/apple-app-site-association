@@ -14,8 +14,8 @@
             "comment": "New sharing format"
           },
           {
-            "/": "/help/*",
-            "exclude": true
+            "/": "/validate-email",
+            "comment": "Validate user email in app"
           }
         ]
       }
