@@ -16,6 +16,10 @@
           {
             "/": "/validate-email",
             "comment": "Validate user email in app"
+          },
+          {
+            "/": "/showplace-invites/*",
+            "comment": "Share a showplace"
           }
         ]
       }
