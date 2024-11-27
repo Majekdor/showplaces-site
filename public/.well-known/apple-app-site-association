@@ -18,6 +18,10 @@
             "comment": "Validate user email in app"
           },
           {
+            "/": "/reset-password",
+            "comment": "Reset user password in app"
+          },
+          {
             "/": "/showplace-invites/*",
             "comment": "Share a showplace"
           }
